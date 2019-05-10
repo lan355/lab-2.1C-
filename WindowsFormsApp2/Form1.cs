@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
+
 using System.Windows.Forms;
 
 namespace WindowsFormsApp2
@@ -15,7 +9,13 @@ namespace WindowsFormsApp2
         public Form1()
         {
             InitializeComponent();
-        }
+
+				saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+				openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+				saveFileDialog2.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+				openFileDialog2.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+
+		}
 
         NewProgram program = new NewProgram();
 
@@ -31,8 +31,11 @@ namespace WindowsFormsApp2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-        }
+			if (openFileDialog1.ShowDialog() == DialogResult.OK)
+			{
+				program.loadFile(openFileDialog1.FileName);
+			}
+		}
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -73,5 +76,54 @@ namespace WindowsFormsApp2
         {
             program.taskRTriangle(textBox2, (int)numericUpDown2.Value);
         }
-    }
+
+		private void button_save_Click(object sender, EventArgs e)
+		{
+			if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+				return;
+
+			string filename = saveFileDialog1.FileName;
+
+			program.saveFile(filename, 1);
+		}
+		private void button_load_Click(object sender, EventArgs e)
+		{
+			if (openFileDialog1.ShowDialog() == DialogResult.OK)
+			{
+				program.loadFile(openFileDialog1.FileName);
+			}
+		}
+
+
+		//==========================================================================================
+		private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+
+		}
+
+		private void openFileDialog2_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+
+		}
+
+		private void saveFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+
+		}
+
+		private void saveFileDialog2_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+
+		}
+
+		private void button_saveRtriangle_Click(object sender, EventArgs e)
+		{
+			if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+				return;
+
+			string filename = saveFileDialog1.FileName;
+
+			program.saveFile(filename, 2);
+		}
+	}
 }
